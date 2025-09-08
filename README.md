@@ -564,13 +564,6 @@ uvicorn main:app --host 0.0.0.0 --port 8000 --workers 4
 ### Debug Mode:
 Set `DEBUG=True` in .env for detailed error messages.
 
-## 📝 Current Status
-
-- ✅ 29 certificates loaded in database
-- ✅ OTP verification system active
-- ✅ S3 integration configured
-- ✅ Mobile-responsive interface
-- ✅ Tenure 2024-25 support
 
 ## 🎉 Thank You Message
 
