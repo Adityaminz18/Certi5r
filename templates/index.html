@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificate Portal | Zenith Club</title>
+    <meta name="description" content="Download your Zenith Club Tenure certificate - Tenure 2024-25" />
+    <meta name="theme-color" content="#00ff9d" />
+    
+    <!-- Favicon - Multiple formats for better compatibility -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/static/favicon-512.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon-512.png" />
+    <link rel="shortcut icon" href="/static/favicon-32.png" />
+    
+    <!-- Open Graph Meta Tags for Social Media Sharing (WhatsApp, Facebook) -->
+    <meta property="og:title" content="Certificate Portal | Zenith Club" />
+    <meta property="og:description" content="Download your Zenith Club event certificates - Tenure 2024-25" />
+    <meta property="og:image" content="{{ request.url.scheme }}://{{ request.url.netloc }}/static/favicon-512.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="Zenith Club Certificate Portal Logo" />
+    <meta property="og:url" content="{{ request.url }}" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Zenith Club" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- WhatsApp specific meta tags -->
+    <meta property="og:image:secure_url" content="{{ request.url.scheme }}://{{ request.url.netloc }}/static/favicon-512.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Certificate Portal | Zenith Club" />
+    <meta name="twitter:description" content="Download your Zenith Club event certificates - Tenure 2024-25" />
+    <meta name="twitter:image" content="{{ request.url.scheme }}://{{ request.url.netloc }}/static/favicon-512.png" />
+    <meta name="twitter:image:alt" content="Zenith Club Certificate Portal Logo" />
+    
+    <!-- Additional Meta Tags for better SEO and sharing -->
+    <meta name="author" content="Zenith Club" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="{{ request.url }}" />
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Tailwind runtime config for custom theme extensions
+        tailwind.config = {
+            theme: {
+                extend: {
+                    container: { center: true, padding: '1rem' },
+                    colors: {
+                        accent: '#00ff9d',
+                    },
+                    boxShadow: {
+                        'neon': '0 0 0 1px rgba(0,255,157,0.35), 0 0 30px 2px rgba(0,255,157,0.15)'
+                    },
+                    keyframes: {
+                        'float': { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
+                        'pulse-glow': { '0%,100%': { opacity: '1' }, '50%': { opacity: '0.5' } },
+                    },
+                    animation: {
+                        float: 'float 5s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts: Fira Code (for the terminal look) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <!-- Custom Styles -->
+    <style>
+        :root { --accent: #00ff9d; }
+        body {
+            font-family: 'Fira Code', monospace;
+            background: radial-gradient(1200px 800px at 10% 10%, rgba(0,255,157,0.07), transparent 60%),
+                        radial-gradient(1000px 600px at 90% 10%, rgba(0,200,255,0.06), transparent 60%),
+                        #0a0a0a;
+            color: #f0f0f0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px, 24px 24px;
+            background-attachment: fixed;
+        }
+        
+        .text-accent { color: var(--accent); }
+        .border-accent { border-color: var(--accent); }
+        .bg-accent { background-color: var(--accent); }
+        
+        .glass { 
+            backdrop-filter: blur(10px); 
+            background-color: rgba(255,255,255,0.03); 
+        }
+
+        .type-cursor::after { 
+            content: '_'; 
+            animation: blink 1s step-end infinite; 
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        .reveal { 
+            opacity: 0; 
+            transform: translateY(26px) scale(.98); 
+            transition: opacity .7s ease, transform .7s ease; 
+        }
+        .reveal.visible { 
+            opacity: 1; 
+            transform: translateY(0) scale(1); 
+        }
+
+        .gradient-border { position: relative; }
+        .gradient-border::before {
+            content: '';
+            position: absolute; inset: 0;
+            padding: 1px; border-radius: 12px;
+            background: linear-gradient(135deg, rgba(0,255,157,.6), rgba(0,160,255,.35));
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(0,255,157,0.2);
+            border-top: 4px solid var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal, .animate-float { animation: none !important; transition: none !important; }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-accent selection:text-black">
+
+    <!-- Particle background container -->
+    <div id="particles-container" class="particles-canvas"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass border-b border-neutral-800/70">
+        <div class="container px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold group inline-flex items-center gap-2" aria-label="Zenith Home">
+                <span class="text-gray-300">&lt;</span>
+                <span class="relative text-white">
+                    <span class="text-accent">Z</span>enith
+                    <span class="absolute -inset-1 bg-gradient-to-r from-accent/10 to-transparent blur-sm rounded"></span>
+                </span>
+                <span class="text-gray-300">/&gt;</span>
+            </a>
+            <div class="text-gray-400 text-sm font-mono">
+                <span class="text-accent">./certificates</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="relative z-10">
+        <main class="container px-6">
+            <!-- Hero Section -->
+            <section class="min-h-screen flex flex-col justify-center items-center text-center pt-16 pb-20">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-800 glass text-neutral-300 text-xs md:text-sm mb-5">
+                    <span class="h-2 w-2 rounded-full bg-accent animate-pulse"></span>
+                    <span>Tenure 2024-25 • Certificate Portal</span>
+                </div>
+
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.1] mb-4">
+                    <span class="bg-gradient-to-r from-white via-white to-accent bg-clip-text text-transparent">Certificate</span>
+                    <br>
+                    <span class="text-accent type-cursor">Download</span>
+                </h1>
+                
+                <p class="mt-4 text-accent text-md md:text-lg tracking-widest uppercase">Powered by Zenith Club</p>
+                <p class="mt-2 text-lg md:text-xl text-gray-400 max-w-3xl">
+                    Download your event participation certificates with secure OTP verification
+                </p>
+
+                <!-- Certificate Form Container -->
+                <div class="mt-10 w-full max-w-lg">
+                    
+                    <!-- Step 1: Enter Details -->
+                    <div class="gradient-border rounded-xl p-[1px] reveal" id="step1">
+                        <div class="rounded-[11px] p-6 glass border border-neutral-800/70">
+                            <h2 class="text-2xl font-bold mb-6 text-center">
+                                <span class="text-accent">$</span> Get Your Certificate
+                            </h2>
+                            
+                            <form id="detailsForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-300 mb-2">University Email</label>
+                                    <input 
+                                        type="email" 
+                                        id="email" 
+                                        name="email" 
+                                        placeholder="Enter your student email" 
+                                        required
+                                        pattern="[a-zA-Z0-9._%+-]+\.[0-9]{3}[a-zA-Z]+[0-9]{3}@sushantuniversity\.edu\.in"
+                                        class="w-full px-4 py-3 bg-black/30 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/60 transition-colors font-mono"
+                                    >
+                                    <p class="text-xs text-gray-400 mt-1">Use your Sushant University email (format: name.rollnumber@sushantuniversity.edu.in)</p>
+                                </div>
+
+                                <button type="submit" class="w-full px-6 py-3 bg-accent text-black font-bold rounded-lg hover:opacity-90 transition-all duration-300 shadow-neon focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60 mt-6">
+                                    Send OTP &gt;
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: OTP Verification -->
+                    <div class="gradient-border rounded-xl p-[1px] reveal hidden" id="step2">
+                        <div class="rounded-[11px] p-6 glass border border-neutral-800/70">
+                            <h2 class="text-2xl font-bold mb-4 text-center">
+                                <span class="text-accent">#</span> Verify Email
+                            </h2>
+                            <p class="text-gray-400 text-center mb-6">Enter the 6-digit OTP sent to your email</p>
+                            
+                            <form id="otpForm" class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-300 mb-2">OTP Code</label>
+                                    <input 
+                                        type="text" 
+                                        id="otp" 
+                                        name="otp" 
+                                        placeholder="123456" 
+                                        required
+                                        maxlength="6"
+                                        pattern="[0-9]{6}"
+                                        class="w-full px-4 py-3 bg-black/30 border border-neutral-700 rounded-lg text-white placeholder-gray-500 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent/60 transition-colors font-mono text-center text-2xl tracking-widest"
+                                    >
+                                </div>
+
+                                <div class="flex gap-3">
+                                    <button type="button" onclick="goBack()" class="flex-1 px-4 py-3 border border-neutral-700 text-gray-300 font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors">
+                                        ← Back
+                                    </button>
+                                    <button type="submit" class="flex-1 px-4 py-3 bg-accent text-black font-bold rounded-lg hover:opacity-90 transition-all duration-300 shadow-neon">
+                                        Verify
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Certificate Ready -->
+                    <div class="gradient-border rounded-xl p-[1px] reveal hidden" id="step3">
+                        <div class="rounded-[11px] p-6 glass border border-neutral-800/70 text-center">
+                            <div class="mb-6">
+                                <div class="text-accent text-6xl mb-4">🎉</div>
+                                <h2 class="text-2xl font-bold mb-2">
+                                    <span class="text-accent">&gt;</span> Certificate Found!
+                                </h2>
+                                <p class="text-gray-400">Your certificate is ready for download</p>
+                            </div>
+                            
+                            <div class="bg-black/20 border border-neutral-800 rounded-lg p-4 mb-6">
+                                <p class="text-sm text-gray-300 mb-2">
+                                    <span class="text-accent font-semibold">Thank you</span> for contributing to Zenith Club's events and making them memorable! 
+                                    Your participation and enthusiasm have been invaluable to our community.
+                                </p>
+                            </div>
+                            
+                            <div class="flex gap-3 mb-4">
+                                <button onclick="previewCertificate()" class="flex-1 px-4 py-3 border border-accent text-accent font-semibold rounded-lg hover:bg-accent hover:text-black transition-all duration-300">
+                                    👀 Preview
+                                </button>
+                                <button onclick="downloadCertificate()" class="flex-1 px-4 py-3 bg-accent text-black font-bold rounded-lg hover:opacity-90 transition-all duration-300 shadow-neon">
+                                    📥 Download
+                                </button>
+                            </div>
+                            
+                            <button type="button" onclick="startOver()" class="text-gray-500 hover:text-gray-300 text-sm transition-colors">
+                                ← Start Over
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Error State -->
+                    <div class="gradient-border rounded-xl p-[1px] reveal hidden" id="errorContainer">
+                        <div class="rounded-[11px] p-6 glass border border-red-800/70 text-center">
+                            <div class="text-red-400 text-4xl mb-4">⚠️</div>
+                            <h2 class="text-xl font-bold mb-2 text-red-400">Error</h2>
+                            <p class="text-gray-400 mb-6" id="errorMessage"></p>
+                            <button onclick="hideError()" class="px-6 py-3 border border-neutral-700 text-gray-300 font-semibold rounded-lg hover:border-accent hover:text-accent transition-colors">
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div class="gradient-border rounded-xl p-[1px] reveal hidden" id="loadingContainer">
+                        <div class="rounded-[11px] p-6 glass border border-neutral-800/70 text-center">
+                            <div class="spinner mx-auto mb-4"></div>
+                            <p class="text-gray-400">Processing your request...</p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Decorative floating orbs -->
+                <div class="relative w-full max-w-3xl mt-14">
+                    <div class="absolute -top-6 -left-6 h-24 w-24 rounded-full bg-accent/10 blur-2xl animate-float"></div>
+                    <div class="absolute -bottom-6 -right-6 h-24 w-24 rounded-full bg-cyan-400/10 blur-2xl animate-float" style="animation-delay: .7s"></div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="border-t border-neutral-800 mt-10">
+            <div class="container px-6 py-8 text-center text-gray-400">
+                <p>&copy; <span id="year">2024</span> Zenith Club. All rights reserved.</p>
+                <p class="mt-2">Tenure 2024-25</p>
+                <div class="flex items-center justify-center gap-5 mt-4 text-sm">
+                    <a class="hover:text-accent transition-colors" href="mailto:info@zenithclub.com" aria-label="Contact">Email</a>
+                    <span class="text-neutral-700">•</span>
+                    <a class="hover:text-accent transition-colors" href="https://www.instagram.com/su_zenith/" aria-label="Instagram">Instagram</a>
+                    <span class="text-neutral-700">•</span>
+                    <a class="hover:text-accent transition-colors" href="https://www.linkedin.com/company/zenithofsu/" aria-label="LinkedIn">LinkedIn</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- tsParticles library -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script src="/static/script.js"></script>
+    
+    <script>
+        // Initialize particles
+        async function loadParticles() {
+            await tsParticles.load("particles-container", {
+                fpsLimit: 60,
+                particles: {
+                    number: { value: 80, density: { enable: true, value_area: 800 } },
+                    color: { value: "#00ff9d" },
+                    shape: { type: "circle" },
+                    opacity: { value: 0.2, random: true },
+                    size: { value: 2, random: true },
+                    line_linked: { enable: true, distance: 150, color: "#00ff9d", opacity: 0.2, width: 1 },
+                    move: { enable: true, speed: 1, direction: "none", random: true, straight: false, out_mode: "out" },
+                },
+                interactivity: { 
+                    detect_on: "canvas", 
+                    events: { 
+                        onhover: { enable: true, mode: "repulse" }, 
+                        onclick: { enable: true, mode: "push" }, 
+                        resize: true 
+                    },
+                    modes: {
+                        repulse: { distance: 100, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                    }
+                },
+                retina_detect: true,
+            });
+        }
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { 
+                if (entry.isIntersecting) entry.target.classList.add('visible'); 
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => observer.observe(el));
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadParticles();
+            document.getElementById('year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>
