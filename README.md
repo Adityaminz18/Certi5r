@@ -78,7 +78,7 @@ A modern, secure FastAPI-based web application for downloading academic certific
 
 5. **Run the application**
    ```bash
-   uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   python3 main.py
    ```
 
 6. **Access the portal**
