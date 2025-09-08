@@ -389,7 +389,6 @@ For support or questions:
 - FastAPI team for the excellent framework
 - Tailwind CSS for the styling system
 - MinIO for S3-compatible storage
-- Sushant University for the certificate requirements
 
 ---
 
